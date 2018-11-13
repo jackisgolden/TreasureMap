@@ -113,11 +113,11 @@ public class Gambling extends JPanel {
 					board[r][c].paintImmediately(0, 0, 1000, 1000);
 					sleep(100);
 					double n = Math.random();
-					if (n < 1 / 27.0)
+					if (n < 1 / 28.0)
 						matrix[r][c] = 4;// blue
-					else if (n < 7 / 27.0)
+					else if (n < 7 / 28.0)
 						matrix[r][c] = 3;// red
-					else if (n < 14 / 27.0)
+					else if (n < 14 / 28.0)
 						matrix[r][c] = 2;
 					else
 						matrix[r][c] = 0;
