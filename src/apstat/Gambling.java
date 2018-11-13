@@ -131,14 +131,8 @@ public class Gambling extends JPanel {
 		} while (System.nanoTime() / 100000 % millis != 0);
 	}
 
-	public static void main(String[] args) {
-		boolean USE_CROSS_PLATFORM_UI = true;
-		if (USE_CROSS_PLATFORM_UI == true)
-			try {
-				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+	public static void main(String[] args) throws Throwable {
+		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		JFrame frame = new JFrame("Treasure hunt - Triple your money!");
 		frame.setSize(800, 800);
 		frame.setLocation(200, 100);
