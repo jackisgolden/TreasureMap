@@ -72,7 +72,7 @@ public class Gambling extends JPanel {
 	}
 
 	private void play(ActionEvent e) {
-		if (ActionEvent.SHIFT_MASK == (e.getModifiers() & ActionEvent.SHIFT_MASK)) 
+		if (ActionEvent.SHIFT_MASK == (e.getModifiers() & ActionEvent.SHIFT_MASK))
 			isDemo = true;
 		play.setEnabled(false);
 		winnings = 0;
@@ -96,6 +96,7 @@ public class Gambling extends JPanel {
 					matrix[r][c] = 0;
 			}
 		}
+		System.out.println("E[x] = " + getExpectedValue());
 	}
 
 	private void sleep() {
@@ -116,7 +117,23 @@ public class Gambling extends JPanel {
 	private static final Color BLUE = new Color(0, 127, 255);
 
 	private static final Color[] colorFor = { BROWN, null, GREEN, RED, BLUE };
-	
+
+	private double getExpectedValue() {
+		int count = 0;
+		double sum = 0;
+		for (int i = 0; i < 100; i++) {
+			for (int j = 0; j < 100; j++) {
+				for (int k = 0; k < 100; k++) {
+					if (i == j || j == k || k == i)
+						continue;
+					sum += matrix[i % 10][i / 10] + matrix[j % 10][j / 10] + matrix[k % 10][k / 10];
+					count++;
+				}
+			}
+		}
+		return (sum - count * 4) / count;
+	}
+
 	public static void main(String[] args) throws Throwable {
 		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		JFrame frame = new JFrame("Treasure hunt - Triple your money!");
