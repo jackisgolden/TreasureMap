@@ -13,6 +13,7 @@ public class Gambling extends JPanel {
 	private int[][] matrix = new int[SIZE][SIZE];
 	// initialize in play:
 	private int turns, winnings;
+	private boolean isDemo;
 
 	public Gambling() {
 		setLayout(new BorderLayout());
@@ -30,7 +31,7 @@ public class Gambling extends JPanel {
 				board[r][c] = new JButton();
 				board[r][c].setBackground(Color.GRAY);
 				int row = r, col = c; // capture
-				board[r][c].addActionListener(e -> clicked(row, col));
+				board[r][c].addActionListener(e -> clicked(e, row, col));
 				board[r][c].setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
 				board[r][c].setBorderPainted(false);
 				board[r][c].setEnabled(false);
@@ -43,7 +44,9 @@ public class Gambling extends JPanel {
 		add(play, BorderLayout.SOUTH);
 	}
 
-	private void clicked(int r, int c) {
+	private void clicked(ActionEvent e, int r, int c) {
+		if (isDemo && ActionEvent.META_MASK == (e.getModifiers() & ActionEvent.META_MASK))
+			matrix[r][c] = 4;
 		board[r][c].setEnabled(false);
 		winnings += matrix[r][c];
 		board[r][c].setBackground(colorFor[matrix[r][c]]);
@@ -55,6 +58,7 @@ public class Gambling extends JPanel {
 	}
 
 	private void endGame() {
+		isDemo = false;
 		label.setText("You won " + winnings + " dollars! To generate more treasure, pay 4 and click \"play\"");
 		play.setEnabled(true);
 		for (int r = 0; r < SIZE; r++) {
@@ -68,6 +72,8 @@ public class Gambling extends JPanel {
 	}
 
 	private void play(ActionEvent e) {
+		if (ActionEvent.SHIFT_MASK == (e.getModifiers() & ActionEvent.SHIFT_MASK)) 
+			isDemo = true;
 		play.setEnabled(false);
 		winnings = 0;
 		label.setText("You have " + (turns = 3) + " turns to uncover treasure.");
