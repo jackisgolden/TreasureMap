@@ -59,6 +59,7 @@ public class Gambling extends JPanel {
 
 	private void endGame() {
 		isDemo = false;
+		System.out.println("   x = " + (4 - winnings));
 		label.setText("You won " + winnings + " dollars! To generate more treasure, pay 4 and click \"play\"");
 		play.setEnabled(true);
 		for (int r = 0; r < SIZE; r++) {
@@ -96,7 +97,7 @@ public class Gambling extends JPanel {
 					matrix[r][c] = 0;
 			}
 		}
-		System.out.println("E[x] = " + getExpectedValue());
+		System.out.println("E[x] = " + -getExpectedValue());
 	}
 
 	private void sleep() {
